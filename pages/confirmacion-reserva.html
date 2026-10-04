@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmación de reserva — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-requires-auth="true">
+
+  <main class="bg-cream min-h-screen py-10">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8">
+        <div class="placeholder-img mx-auto mb-4 rounded-full" style="width: 5rem; height: 5rem; font-size: 2.5rem;">✓</div>
+        <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-success);">Paso 2 de 3</p>
+        <h1 class="font-display text-4xl sm:text-5xl font-bold mb-2" style="color: var(--color-noir);">¡Reserva creada!</h1>
+        <p class="text-gray-600">Revisa los detalles y procede al pago para confirmar tu mesa.</p>
+      </div>
+
+      <!-- Indicador de pasos -->
+      <div class="flex items-center justify-center mb-8 gap-2 sm:gap-4">
+        <div class="flex items-center gap-2">
+          <div class="step-circle completed">✓</div>
+          <span class="text-sm font-semibold hidden sm:inline">Datos</span>
+        </div>
+        <div class="h-0.5 w-8 sm:w-16" style="background: var(--color-success);"></div>
+        <div class="flex items-center gap-2">
+          <div class="step-circle active">2</div>
+          <span class="text-sm font-semibold hidden sm:inline">Confirmación</span>
+        </div>
+        <div class="h-0.5 w-8 sm:w-16" style="background: var(--color-cream-dark);"></div>
+        <div class="flex items-center gap-2">
+          <div class="step-circle">3</div>
+          <span class="text-sm font-semibold hidden sm:inline text-gray-400">Pago</span>
+        </div>
+      </div>
+
+      <div class="card-premium p-8 mb-6">
+        <div class="flex flex-wrap items-center justify-between mb-6 pb-6 border-b border-gray-200">
+          <div>
+            <p class="text-xs uppercase tracking-wider text-gray-500 mb-1">Número de reserva</p>
+            <p class="font-display text-3xl font-bold" style="color: var(--color-gold-dark);" id="reservaId">—</p>
+          </div>
+          <div class="text-right">
+            <span class="badge badge-pendiente">⏳ Pendiente de pago</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div class="p-4 rounded-lg" style="background: var(--color-cream-dark);">
+            <p class="text-xs uppercase text-gray-500 mb-1">Fecha</p>
+            <p class="font-display text-lg font-bold" id="r-fecha">—</p>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--color-cream-dark);">
+            <p class="text-xs uppercase text-gray-500 mb-1">Hora</p>
+            <p class="font-display text-lg font-bold" id="r-hora">—</p>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--color-cream-dark);">
+            <p class="text-xs uppercase text-gray-500 mb-1">Personas</p>
+            <p class="font-display text-lg font-bold" id="r-personas">—</p>
+          </div>
+          <div class="p-4 rounded-lg" style="background: var(--color-cream-dark);">
+            <p class="text-xs uppercase text-gray-500 mb-1">Zona</p>
+            <p class="font-display text-sm font-bold" id="r-zona">—</p>
+          </div>
+        </div>
+
+        <div id="extraInfo" class="mb-6 hidden">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <p class="text-xs uppercase text-gray-500 mb-1">Ocasión</p>
+              <p class="font-semibold" id="r-ocasion">—</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase text-gray-500 mb-1">Comentarios</p>
+              <p class="text-sm text-gray-600" id="r-comentarios">—</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 pt-6">
+          <h3 class="font-display text-lg font-bold mb-4">Desglose de precios</h3>
+          <div class="space-y-2 mb-4">
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600" id="r-desc-base">Tarifa base</span>
+              <span class="font-semibold" id="r-base">CLP$ 0</span>
+            </div>
+            <div class="flex justify-between text-sm">
+              <span class="text-gray-600">Cargo por zona premium</span>
+              <span class="font-semibold" id="r-extra">CLP$ 0</span>
+            </div>
+          </div>
+          <div class="border-t pt-4 flex items-center justify-between">
+            <span class="font-display text-xl font-bold">Total a pagar</span>
+            <span class="font-display text-3xl font-bold" style="color: var(--color-gold-dark);" id="r-total">CLP$ 0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="historial-reservas.html" class="btn-secondary justify-center">
+          <span>Ver mis reservas</span>
+        </a>
+        <a href="pago.html" class="btn-primary justify-center">
+          <span>Ir a pagar</span>
+          <span>→</span>
+        </a>
+      </div>
+
+      <p class="text-center text-xs text-gray-500 mt-6">
+        💡 La reserva se mantiene por 30 minutos. Si no realizas el pago, será cancelada automáticamente.
+      </p>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id') || sessionStorage.getItem('currentReservaId');
+      if (!id) {
+        UI.toast('No se encontró la reserva', 'error');
+        setTimeout(() => location.href = 'reservar.html', 1000);
+        return;
+      }
+
+      const r = Reservas.getById(id);
+      if (!r) {
+        UI.toast('Reserva no encontrada', 'error');
+        setTimeout(() => location.href = 'historial-reservas.html', 1000);
+        return;
+      }
+
+      sessionStorage.setItem('currentReservaId', id);
+
+      document.getElementById('reservaId').textContent = r.id;
+      document.getElementById('r-fecha').textContent = UI.Format.dayName(r.fecha);
+      document.getElementById('r-hora').textContent = r.hora;
+      document.getElementById('r-personas').textContent = r.personas + (r.personas === 1 ? ' persona' : ' personas');
+      document.getElementById('r-zona').textContent = r.zona;
+      document.getElementById('r-desc-base').textContent = `Tarifa base (${r.personas} × CLP$ 15.000)`;
+      document.getElementById('r-base').textContent = UI.Format.currency(r.precioBase);
+      document.getElementById('r-extra').textContent = UI.Format.currency(r.precioExtras);
+      document.getElementById('r-total').textContent = UI.Format.currency(r.total);
+
+      if (r.ocasion || r.comentarios) {
+        document.getElementById('extraInfo').classList.remove('hidden');
+        document.getElementById('r-ocasion').textContent = r.ocasion || '—';
+        document.getElementById('r-comentarios').textContent = r.comentarios || '—';
+      }
+    });
+  </script>
+</body>
+</html>

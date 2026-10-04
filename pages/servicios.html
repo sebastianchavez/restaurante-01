@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <main class="bg-cream">
+    <!-- HEADER -->
+    <section class="py-20 text-center text-white" style="background: linear-gradient(135deg, var(--color-noir), var(--color-noir-soft));">
+      <div class="max-w-4xl mx-auto px-4">
+        <p class="uppercase tracking-widest text-sm mb-3" style="color: var(--color-gold);">Nuestros servicios</p>
+        <h1 class="font-display text-4xl sm:text-6xl font-bold mb-4">Más que un restaurante</h1>
+        <p class="text-lg text-gray-300 max-w-2xl mx-auto">Experiencias diseñadas para cada ocasión. Desde cenas familiares hasta eventos corporativos de alto nivel.</p>
+      </div>
+    </section>
+
+    <!-- SERVICIOS PRINCIPALES -->
+    <section class="py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+
+          <article class="card-premium overflow-hidden hover-lift">
+            <div class="img-cover h-56" data-img="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="🍽️"></div>
+            <div class="p-8">
+              <p class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--color-gold-dark);">Servicio principal</p>
+              <h2 class="font-display text-2xl font-bold mb-3">Carta y Menú Degustación</h2>
+              <p class="text-gray-700 mb-4 leading-relaxed">Disfruta de nuestra carta completa de cocina de autor con ingredientes locales y técnicas internacionales. También ofrecemos menú degustación de 5, 7 y 9 pasos maridados con vinos selectos.</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>✓ Carta de temporada actualizada</li>
+                <li>✓ Menú degustación con maridaje</li>
+                <li>✓ Opciones vegetarianas y veganas</li>
+                <li>✓ Adaptación para alergias alimentarias</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card-premium overflow-hidden hover-lift">
+            <div class="img-cover h-56" data-img="https://images.unsplash.com/photo-1530063845287-adf49e0b3d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="🎉"></div>
+            <div class="p-8">
+              <p class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--color-gold-dark);">Eventos</p>
+              <h2 class="font-display text-2xl font-bold mb-3">Eventos Privados</h2>
+              <p class="text-gray-700 mb-4 leading-relaxed">Salones exclusivos para cumpleaños, aniversarios, bodas íntimas y reuniones familiares. Personalización completa del ambiente, menú y decoración.</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>✓ Capacidad de 20 a 80 personas</li>
+                <li>✓ Menú personalizado</li>
+                <li>✓ Decoración a medida</li>
+                <li>✓ Servicio de mozos exclusivo</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card-premium overflow-hidden hover-lift">
+            <div class="img-cover h-56" data-img="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="💼"></div>
+            <div class="p-8">
+              <p class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--color-gold-dark);">Negocios</p>
+              <h2 class="font-display text-2xl font-bold mb-3">Eventos Corporativos</h2>
+              <p class="text-gray-700 mb-4 leading-relaxed">Almuerzos de negocios, cenas de gala empresarial, lanzamientos de producto y reuniones ejecutivas en ambientes sofisticados con tecnología audiovisual.</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>✓ Proyector y pantalla</li>
+                <li>✓ Sistema de sonido profesional</li>
+                <li>✓ Catering personalizado</li>
+                <li>✓ Facturación corporativa</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card-premium overflow-hidden hover-lift">
+            <div class="img-cover h-56" data-img="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="🛵"></div>
+            <div class="p-8">
+              <p class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--color-gold-dark);">A domicilio</p>
+              <h2 class="font-display text-2xl font-bold mb-3">Delivery Premium</h2>
+              <p class="text-gray-700 mb-4 leading-relaxed">Llevamos la experiencia Le Gourmet a la comodidad de tu hogar. Platos Signature con empaque especial para mantener temperatura y presentación.</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>✓ Zona de cobertura: Miraflores, San Isidro, Barranco</li>
+                <li>✓ Entrega en 45-60 minutos</li>
+                <li>✓ Embalaje térmico especial</li>
+                <li>✓ Pedido mínimo CLP$ 20.000</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card-premium overflow-hidden hover-lift">
+            <div class="img-cover h-56" data-img="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="🍷"></div>
+            <div class="p-8">
+              <p class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--color-gold-dark);">Experiencias</p>
+              <h2 class="font-display text-2xl font-bold mb-3">Cata de Vinos</h2>
+              <p class="text-gray-700 mb-4 leading-relaxed">Sommelier certificado guía una experiencia sensorial con 5 vinos premium de diferentes regiones del mundo, maridados con tapas de autor.</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>✓ Duración: 2 horas</li>
+                <li>✓ Grupos de 6 a 12 personas</li>
+                <li>✓ Notas de cata incluidas</li>
+                <li>✓ Certificado de participación</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card-premium overflow-hidden hover-lift">
+            <div class="img-cover h-56" data-img="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="👨‍🍳"></div>
+            <div class="p-8">
+              <p class="text-xs uppercase tracking-widest font-semibold mb-2" style="color: var(--color-gold-dark);">Educativo</p>
+              <h2 class="font-display text-2xl font-bold mb-3">Clases de Cocina</h2>
+              <p class="text-gray-700 mb-4 leading-relaxed">Aprende las técnicas de nuestros chefs en workshops prácticos. Desde cocina básica hasta técnicas avanzadas de la cocina de autor.</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li>✓ Workshops mensuales temáticos</li>
+                <li>✓ Grupos reducidos (8-10 personas)</li>
+                <li>✓ Ingredientes y materiales incluidos</li>
+                <li>✓ Degustación de lo preparado</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+
+        <!-- PAQUETES -->
+        <div class="text-center mb-12">
+          <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Paquetes</p>
+          <h2 class="font-display text-4xl sm:text-5xl font-bold" style="color: var(--color-noir);">Elige tu experiencia</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card-premium p-8 text-center hover-lift">
+            <p class="font-display text-xl font-bold mb-2">Esencial</p>
+            <p class="text-4xl font-display font-bold mb-4" style="color: var(--color-gold-dark);">CLP$ 29.500</p>
+            <p class="text-sm text-gray-600 mb-6">por persona</p>
+            <ul class="text-sm space-y-2 mb-6 text-left">
+              <li>✓ Menú de 3 pasos</li>
+              <li>✓ Bebida no alcohólica</li>
+              <li>✓ Mesa estándar</li>
+              <li>✓ Atención regular</li>
+            </ul>
+            <a href="reservar.html" class="btn-secondary w-full justify-center">Reservar</a>
+          </div>
+
+          <div class="card-premium p-8 text-center hover-lift relative" style="border: 2px solid var(--color-gold);">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs font-bold" style="background: var(--color-gold); color: var(--color-noir);">POPULAR</span>
+            <p class="font-display text-xl font-bold mb-2">Premium</p>
+            <p class="text-4xl font-display font-bold mb-4" style="color: var(--color-gold-dark);">CLP$ 54.500</p>
+            <p class="text-sm text-gray-600 mb-6">por persona</p>
+            <ul class="text-sm space-y-2 mb-6 text-left">
+              <li>✓ Menú degustación 5 pasos</li>
+              <li>✓ Maridaje de vinos</li>
+              <li>✓ Mesa VIP</li>
+              <li>✓ Sommelier dedicado</li>
+            </ul>
+            <a href="reservar.html" class="btn-primary w-full justify-center">Reservar</a>
+          </div>
+
+          <div class="card-premium p-8 text-center hover-lift">
+            <p class="font-display text-xl font-bold mb-2">Signature</p>
+            <p class="text-4xl font-display font-bold mb-4" style="color: var(--color-gold-dark);">CLP$ 87.500</p>
+            <p class="text-sm text-gray-600 mb-6">por persona</p>
+            <ul class="text-sm space-y-2 mb-6 text-left">
+              <li>✓ Menú degustación 9 pasos</li>
+              <li>✓ Vinos premium</li>
+              <li>✓ Chef's Table</li>
+              <li>✓ Souvenir gastronómico</li>
+            </ul>
+            <a href="reservar.html" class="btn-secondary w-full justify-center">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-16 text-center" style="background: var(--color-noir); color: white;">
+      <div class="max-w-3xl mx-auto px-4">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold mb-4">¿Necesitas algo personalizado?</h2>
+        <p class="text-gray-300 mb-6">Contáctanos y diseñaremos una experiencia a la medida de tu evento.</p>
+        <a href="contacto.html" class="btn-gold">Contáctanos</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => { UI.init(); UI.buildChrome(); });
+  </script>
+</body>
+</html>

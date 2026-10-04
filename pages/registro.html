@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="bg-cream">
+
+  <main class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="max-w-2xl w-full">
+      <div class="text-center mb-8">
+        <a href="../index.html" class="inline-flex items-center gap-2 mb-4">
+          <span class="text-3xl">🍷</span>
+          <span class="font-display text-2xl font-bold">Le Gourmet</span>
+        </a>
+        <h1 class="font-display text-3xl font-bold mb-2" style="color: var(--color-noir);">Crea tu cuenta</h1>
+        <p class="text-gray-600">Regístrate y empieza a disfrutar beneficios exclusivos</p>
+      </div>
+
+      <div class="card-premium p-8">
+        <form id="registerForm" novalidate>
+          <p class="font-display text-lg mb-4" style="color: var(--color-noir);">👤 Datos personales</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div>
+              <label for="nombre">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" class="input-field" placeholder="Juan Pérez" required>
+            </div>
+            <div>
+              <label for="dni">DNI / Documento *</label>
+              <input type="text" id="dni" name="dni" class="input-field" placeholder="12345678" maxlength="12" required>
+            </div>
+            <div>
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" class="input-field" placeholder="tu@email.com" required>
+            </div>
+            <div>
+              <label for="telefono">Teléfono *</label>
+              <input type="tel" id="telefono" name="telefono" class="input-field" placeholder="+51 987 654 321" required>
+            </div>
+          </div>
+
+          <p class="font-display text-lg mb-4" style="color: var(--color-noir);">🔒 Seguridad</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label for="password">Contraseña *</label>
+              <input type="password" id="password" name="password" class="input-field" placeholder="Mínimo 6 caracteres" required>
+              <p class="text-xs text-gray-500 mt-1">Usa letras, números y símbolos</p>
+            </div>
+            <div>
+              <label for="confirmPassword">Confirmar contraseña *</label>
+              <input type="password" id="confirmPassword" name="confirmPassword" class="input-field" placeholder="Repite la contraseña" required>
+            </div>
+          </div>
+
+          <p class="font-display text-lg mb-4 mt-6" style="color: var(--color-noir);">😊 Elige un avatar</p>
+          <div class="flex flex-wrap gap-2 mb-6" id="avatarPicker">
+            <button type="button" data-avatar="👤" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">👤</button>
+            <button type="button" data-avatar="👨" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">👨</button>
+            <button type="button" data-avatar="👩" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">👩</button>
+            <button type="button" data-avatar="🧑" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">🧑</button>
+            <button type="button" data-avatar="👨‍🍳" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">👨‍🍳</button>
+            <button type="button" data-avatar="👩‍🍳" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">👩‍🍳</button>
+            <button type="button" data-avatar="🧔" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">🧔</button>
+            <button type="button" data-avatar="👱‍♀️" class="avatar-btn w-12 h-12 rounded-full flex items-center justify-center text-2xl border-2 hover:border-gold transition">👱‍♀️</button>
+          </div>
+          <input type="hidden" id="avatar" name="avatar" value="👤">
+
+          <div class="mb-6">
+            <label class="flex items-start gap-2 cursor-pointer">
+              <input type="checkbox" id="terminos" name="terminos" class="mt-1">
+              <span class="text-sm text-gray-700">Acepto los <a href="terminos-condiciones.html" class="font-semibold" style="color: var(--color-gold-dark);">términos y condiciones</a> y la <a href="politica-privacidad.html" class="font-semibold" style="color: var(--color-gold-dark);">política de privacidad</a> *</label>
+          </div>
+
+          <button type="submit" class="btn-primary w-full justify-center">Crear mi cuenta</button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-6">
+          ¿Ya tienes cuenta?
+          <a href="login.html" class="font-semibold" style="color: var(--color-gold-dark);">Inicia sesión</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const form = document.getElementById('registerForm');
+      const avatarInput = document.getElementById('avatar');
+
+      document.querySelectorAll('.avatar-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          avatarInput.value = btn.dataset.avatar;
+          document.querySelectorAll('.avatar-btn').forEach(b => {
+            b.style.borderColor = '#e5e5e5';
+            b.style.background = 'white';
+          });
+          btn.style.borderColor = 'var(--color-gold)';
+          btn.style.background = 'var(--color-cream)';
+        });
+      });
+      document.querySelector('[data-avatar="👤"]').click();
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        UI.clearFormErrors(form);
+
+        const ok = UI.validateForm(form, {
+          nombre: [v => UI.Validators.required(v) && UI.Validators.minLength(v, 3), 'Nombre inválido'],
+          dni: [v => UI.Validators.required(v) && UI.Validators.numeric(v), 'DNI inválido'],
+          email: [v => UI.Validators.required(v) && UI.Validators.email(v), 'Email inválido'],
+          telefono: [v => UI.Validators.required(v) && UI.Validators.phone(v), 'Teléfono inválido'],
+          password: [v => UI.Validators.required(v) && UI.Validators.minLength(v, 6), 'Mínimo 6 caracteres'],
+          confirmPassword: [v => v === form.password.value, 'Las contraseñas no coinciden'],
+          terminos: [v => form.terminos.checked, 'Debes aceptar los términos']
+        });
+
+        if (!ok) return;
+
+        const result = Auth.register({
+          nombre: form.nombre.value.trim(),
+          dni: form.dni.value.trim(),
+          email: form.email.value.trim(),
+          telefono: form.telefono.value.trim(),
+          password: form.password.value,
+          avatar: avatarInput.value
+        });
+
+        if (!result.ok) {
+          UI.toast(result.error, 'error');
+          return;
+        }
+
+        UI.toast('¡Cuenta creada exitosamente!', 'success');
+        const loginRes = Auth.login(form.email.value.trim(), form.password.value);
+        setTimeout(() => location.href = '../pages/perfil.html', 1000);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis reservas — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-requires-auth="true">
+
+  <main class="bg-cream min-h-screen py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Historial</p>
+          <h1 class="font-display text-4xl sm:text-5xl font-bold" style="color: var(--color-noir);">Mis reservas</h1>
+        </div>
+        <a href="reservar.html" class="btn-primary">+ Nueva reserva</a>
+      </div>
+
+      <!-- Filtros -->
+      <div class="card-premium p-4 mb-6 flex flex-wrap items-center gap-2">
+        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-semibold" data-filter="todas">Todas</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold" data-filter="Pendiente">⏳ Pendientes</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold" data-filter="Confirmada">📅 Confirmadas</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold" data-filter="Pagada">💳 Pagadas</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold" data-filter="Completada">✓ Completadas</button>
+        <button class="filter-btn px-4 py-2 rounded-full text-sm font-semibold" data-filter="Anulada">✕ Anuladas</button>
+        <div class="flex-1"></div>
+        <input type="text" id="searchInput" placeholder="🔍 Buscar por N° reserva..." class="text-sm" style="max-width: 14rem;">
+      </div>
+
+      <!-- Lista -->
+      <div id="reservasList" class="space-y-4"></div>
+
+      <!-- Empty state -->
+      <div id="emptyState" class="hidden card-premium p-12 text-center">
+        <div class="placeholder-img mx-auto rounded-full mb-4" style="width: 5rem; height: 5rem; font-size: 2.5rem;">📅</div>
+        <h3 class="font-display text-xl font-bold mb-2">No tienes reservas</h3>
+        <p class="text-gray-600 mb-6">Cuando realices una reserva aparecerá aquí.</p>
+        <a href="reservar.html" class="btn-primary">Reservar ahora</a>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .filter-btn {
+      background: white;
+      color: var(--color-noir-soft);
+      border: 1px solid #e5e5e5;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover { border-color: var(--color-gold); }
+    .filter-btn.active {
+      background: var(--color-noir);
+      color: var(--color-gold);
+      border-color: var(--color-noir);
+    }
+  </style>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      let currentFilter = 'todas';
+      let allReservas = Reservas.getAll();
+
+      const listEl = document.getElementById('reservasList');
+      const emptyEl = document.getElementById('emptyState');
+
+      const statusBadge = {
+        'Pendiente': 'badge-pendiente',
+        'Confirmada': 'badge-confirmada',
+        'Pagada': 'badge-pagada',
+        'Completada': 'badge-completada',
+        'Anulada': 'badge-anulada',
+        'En curso': 'badge-curso'
+      };
+
+      const statusIcon = {
+        'Pendiente': '⏳',
+        'Confirmada': '📅',
+        'Pagada': '💳',
+        'Completada': '✅',
+        'Anulada': '❌',
+        'En curso': '🍽️'
+      };
+
+      function render(search = '') {
+        let filtered = allReservas;
+        if (currentFilter !== 'todas') {
+          filtered = filtered.filter(r => r.estado === currentFilter);
+        }
+        if (search) {
+          const s = search.toLowerCase();
+          filtered = filtered.filter(r => r.id.toLowerCase().includes(s));
+        }
+
+        if (filtered.length === 0) {
+          listEl.innerHTML = '';
+          emptyEl.classList.remove('hidden');
+          return;
+        }
+        emptyEl.classList.add('hidden');
+
+        listEl.innerHTML = filtered.map(r => `
+          <article class="card-premium p-6 hover-lift cursor-pointer" onclick="window.location.href='detalle-reserva.html?id=${r.id}'">
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+              <div>
+                <p class="text-xs uppercase text-gray-500 mb-1">N° de reserva</p>
+                <p class="font-display text-2xl font-bold" style="color: var(--color-gold-dark);">${r.id}</p>
+              </div>
+              <span class="badge ${statusBadge[r.estado]}">${statusIcon[r.estado] || ''} ${r.estado}</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+              <div>
+                <p class="text-xs uppercase text-gray-500 mb-1">Fecha</p>
+                <p class="font-semibold text-sm">${UI.Format.dateShort(r.fecha)}</p>
+              </div>
+              <div>
+                <p class="text-xs uppercase text-gray-500 mb-1">Hora</p>
+                <p class="font-semibold text-sm">${r.hora}</p>
+              </div>
+              <div>
+                <p class="text-xs uppercase text-gray-500 mb-1">Personas</p>
+                <p class="font-semibold text-sm">${r.personas}</p>
+              </div>
+              <div>
+                <p class="text-xs uppercase text-gray-500 mb-1">Zona</p>
+                <p class="font-semibold text-sm">${r.zona}</p>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-gray-100">
+              <div>
+                <p class="text-xs uppercase text-gray-500">Total</p>
+                <p class="font-display text-xl font-bold" style="color: var(--color-gold-dark);">${UI.Format.currency(r.total)}</p>
+              </div>
+              <button class="btn-secondary text-xs px-4 py-2">Ver detalle →</button>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          render(document.getElementById('searchInput').value);
+        });
+      });
+
+      document.getElementById('searchInput').addEventListener('input', e => render(e.target.value));
+
+      render();
+    });
+  </script>
+</body>
+</html>

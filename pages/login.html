@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="bg-cream">
+
+  <main class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="max-w-md w-full">
+      <div class="text-center mb-8">
+        <a href="../index.html" class="inline-flex items-center gap-2 mb-4">
+          <span class="text-3xl">🍷</span>
+          <span class="font-display text-2xl font-bold">Le Gourmet</span>
+        </a>
+        <h1 class="font-display text-3xl font-bold mb-2" style="color: var(--color-noir);">Bienvenido de vuelta</h1>
+        <p class="text-gray-600">Ingresa a tu cuenta para gestionar tus reservas</p>
+      </div>
+
+      <div class="card-premium p-8">
+        <form id="loginForm" novalidate>
+          <div class="mb-5">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" class="input-field" placeholder="tu@email.com" autocomplete="email" required>
+          </div>
+          <div class="mb-5">
+            <label for="password">Contraseña</label>
+            <div class="relative">
+              <input type="password" id="password" name="password" class="input-field pr-12" placeholder="••••••••" autocomplete="current-password" required>
+              <button type="button" id="togglePwd" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gold text-xl">👁</button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between mb-6 text-sm">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="remember" class="rounded">
+              <span>Recordarme</span>
+            </label>
+            <a href="recuperar-password.html" class="font-semibold" style="color: var(--color-gold-dark);">¿Olvidaste tu contraseña?</a>
+          </div>
+          <button type="submit" class="btn-primary w-full justify-center">
+            <span>Iniciar sesión</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <div class="my-6 flex items-center gap-3">
+          <div class="flex-1 h-px bg-gray-200"></div>
+          <span class="text-xs text-gray-500 uppercase">o</span>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+
+        <p class="text-center text-sm text-gray-600">
+          ¿Aún no tienes cuenta?
+          <a href="registro.html" class="font-semibold" style="color: var(--color-gold-dark);">Regístrate aquí</a>
+        </p>
+      </div>
+
+      <div class="mt-6 p-4 rounded-lg" style="background: var(--color-cream-dark); border: 1px dashed var(--color-gold);">
+        <p class="text-xs font-semibold uppercase tracking-wider mb-1" style="color: var(--color-gold-dark);">🎯 Cuenta demo</p>
+        <p class="text-sm text-gray-700">Email: <strong>demo@restaurante.com</strong></p>
+        <p class="text-sm text-gray-700">Contraseña: <strong>123456</strong></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const form = document.getElementById('loginForm');
+      const toggle = document.getElementById('togglePwd');
+      const pwd = document.getElementById('password');
+
+      toggle.addEventListener('click', () => {
+        pwd.type = pwd.type === 'password' ? 'text' : 'password';
+        toggle.textContent = pwd.type === 'password' ? '👁' : '🙈';
+      });
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        UI.clearFormErrors(form);
+        const ok = UI.validateForm(form, {
+          email: [v => UI.Validators.required(v) && UI.Validators.email(v), 'Email inválido'],
+          password: [v => UI.Validators.required(v), 'Contraseña requerida']
+        });
+        if (!ok) return;
+        const result = Auth.login(form.email.value.trim(), form.password.value);
+        if (!result.ok) {
+          UI.toast(result.error, 'error');
+          form.password.classList.add('error');
+          return;
+        }
+        UI.toast('¡Bienvenido ' + result.user.nombre.split(' ')[0] + '!', 'success');
+        const params = new URLSearchParams(location.search);
+        const redirect = params.get('redirect');
+        setTimeout(() => {
+          location.href = redirect ? redirect : '../pages/perfil.html';
+        }, 800);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi perfil — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-requires-auth="true">
+
+  <main class="bg-cream min-h-screen py-10">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="text-center mb-8">
+        <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Mi cuenta</p>
+        <h1 class="font-display text-4xl sm:text-5xl font-bold" style="color: var(--color-noir);">Mi perfil</h1>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- COLUMNA PRINCIPAL -->
+        <div class="lg:col-span-2">
+          <!-- CARD PERFIL -->
+          <div class="card-premium p-8 mb-6">
+            <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+              <div class="flex items-center gap-4">
+                <div class="w-20 h-20 rounded-full flex items-center justify-center text-4xl" style="background: var(--color-gold);" id="avatarBox">👤</div>
+                <div>
+                  <h2 class="font-display text-2xl font-bold" id="userName">—</h2>
+                  <p class="text-sm text-gray-600" id="userEmail">—</p>
+                  <p class="text-xs text-gray-500 mt-1">Miembro desde <span id="userFecha">—</span></p>
+                </div>
+              </div>
+              <button id="btnEdit" class="btn-secondary text-xs px-4 py-2">
+                <span>✏</span><span>Editar</span>
+              </button>
+            </div>
+
+            <!-- Form de edición -->
+            <form id="profileForm" class="hidden border-t pt-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label for="nombre">Nombre</label>
+                  <input type="text" id="nombre" name="nombre" class="input-field" required>
+                </div>
+                <div>
+                  <label for="dni">DNI / Documento</label>
+                  <input type="text" id="dni" name="dni" class="input-field">
+                </div>
+                <div>
+                  <label for="telefono">Teléfono</label>
+                  <input type="tel" id="telefono" name="telefono" class="input-field">
+                </div>
+                <div>
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" class="input-field" required>
+                </div>
+              </div>
+              <div class="mb-5">
+                <label>Cambiar avatar</label>
+                <div class="flex flex-wrap gap-2" id="avatarPicker">
+                  <button type="button" data-avatar="👤" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">👤</button>
+                  <button type="button" data-avatar="👨" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">👨</button>
+                  <button type="button" data-avatar="👩" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">👩</button>
+                  <button type="button" data-avatar="🧑" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">🧑</button>
+                  <button type="button" data-avatar="👨‍🍳" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">👨‍🍳</button>
+                  <button type="button" data-avatar="👩‍🍳" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">👩‍🍳</button>
+                  <button type="button" data-avatar="🧔" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">🧔</button>
+                  <button type="button" data-avatar="👱‍♀️" class="avatar-btn w-10 h-10 rounded-full flex items-center justify-center text-xl border-2">👱‍♀️</button>
+                </div>
+                <input type="hidden" id="avatar" name="avatar">
+              </div>
+              <div class="flex gap-3">
+                <button type="button" id="btnCancel" class="btn-secondary">Cancelar</button>
+                <button type="submit" class="btn-primary">Guardar cambios</button>
+              </div>
+            </form>
+
+            <!-- Datos en modo vista -->
+            <div id="viewData" class="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t pt-6">
+              <div>
+                <p class="text-xs uppercase text-gray-500 mb-1">Teléfono</p>
+                <p class="font-semibold" id="v-telefono">—</p>
+              </div>
+              <div>
+                <p class="text-xs uppercase text-gray-500 mb-1">DNI / Documento</p>
+                <p class="font-semibold" id="v-dni">—</p>
+              </div>
+              <div class="sm:col-span-2">
+                <p class="text-xs uppercase text-gray-500 mb-1">Email</p>
+                <p class="font-semibold" id="v-email">—</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ESTADÍSTICAS -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+            <div class="card-premium p-5 text-center">
+              <p class="font-display text-3xl font-bold" style="color: var(--color-gold-dark);" id="stat-total">0</p>
+              <p class="text-xs text-gray-600">Totales</p>
+            </div>
+            <div class="card-premium p-5 text-center">
+              <p class="font-display text-3xl font-bold" style="color: var(--color-info);" id="stat-confirmadas">0</p>
+              <p class="text-xs text-gray-600">Próximas</p>
+            </div>
+            <div class="card-premium p-5 text-center">
+              <p class="font-display text-3xl font-bold" style="color: var(--color-success);" id="stat-completadas">0</p>
+              <p class="text-xs text-gray-600">Completadas</p>
+            </div>
+            <div class="card-premium p-5 text-center">
+              <p class="font-display text-3xl font-bold" style="color: var(--color-danger);" id="stat-anuladas">0</p>
+              <p class="text-xs text-gray-600">Anuladas</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA LATERAL -->
+        <aside>
+          <div class="card-premium p-6 mb-4">
+            <h3 class="font-display text-lg font-bold mb-4">⚡ Acciones rápidas</h3>
+            <div class="space-y-2">
+              <a href="reservar.html" class="btn-primary w-full justify-center">+ Nueva reserva</a>
+              <a href="historial-reservas.html" class="btn-secondary w-full justify-center">📅 Mis reservas</a>
+            </div>
+          </div>
+
+          <div class="card-premium p-6 mb-4">
+            <h3 class="font-display text-lg font-bold mb-4">⭐ Programa de fidelidad</h3>
+            <div class="text-center mb-4">
+              <p class="font-display text-4xl font-bold" style="color: var(--color-gold-dark);" id="puntos">0</p>
+              <p class="text-xs text-gray-600">puntos acumulados</p>
+            </div>
+            <div class="w-full h-2 rounded-full overflow-hidden mb-2" style="background: var(--color-cream-dark);">
+              <div id="progressBar" class="h-full" style="background: var(--color-gold); width: 0%;"></div>
+            </div>
+            <p class="text-xs text-gray-600 text-center"><span id="puntosNext">300</span> pts para tu próxima recompensa</p>
+          </div>
+
+          <div class="card-premium p-6">
+            <h3 class="font-display text-lg font-bold mb-4">🔒 Seguridad</h3>
+            <div class="space-y-2 text-sm">
+              <a href="#" class="block p-3 rounded-lg hover:bg-cream-dark" style="border: 1px solid var(--color-cream-dark);">
+                🔑 Cambiar contraseña
+              </a>
+              <a href="#" class="block p-3 rounded-lg hover:bg-cream-dark" style="border: 1px solid var(--color-cream-dark);">
+                📱 Verificar 2FA
+              </a>
+              <a href="#" class="block p-3 rounded-lg hover:bg-cream-dark" style="border: 1px solid var(--color-cream-dark);">
+                🚪 Cerrar sesión
+              </a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const user = Auth.getCurrentFull();
+      if (!user) return;
+
+      function fillView() {
+        document.getElementById('userName').textContent = user.nombre;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userFecha').textContent = UI.Format.dateShort(user.fechaRegistro);
+        document.getElementById('avatarBox').textContent = user.avatar || '👤';
+        document.getElementById('v-telefono').textContent = user.telefono || '—';
+        document.getElementById('v-dni').textContent = user.dni || '—';
+        document.getElementById('v-email').textContent = user.email;
+      }
+      fillView();
+
+      const stats = Reservas.getStats();
+      document.getElementById('stat-total').textContent = stats.total;
+      document.getElementById('stat-confirmadas').textContent = stats.confirmadas;
+      document.getElementById('stat-completadas').textContent = stats.completadas;
+      document.getElementById('stat-anuladas').textContent = stats.anuladas;
+
+      const puntos = stats.completadas * 100 + stats.confirmadas * 50;
+      document.getElementById('puntos').textContent = puntos;
+      const nextLevel = 300;
+      document.getElementById('puntosNext').textContent = nextLevel;
+      document.getElementById('progressBar').style.width = Math.min(100, (puntos / nextLevel) * 100) + '%';
+
+      // Edición
+      const form = document.getElementById('profileForm');
+      const view = document.getElementById('viewData');
+      const btnEdit = document.getElementById('btnEdit');
+      const btnCancel = document.getElementById('btnCancel');
+      const avatarInput = document.getElementById('avatar');
+      let editing = false;
+
+      function loadForm() {
+        form.nombre.value = user.nombre;
+        form.dni.value = user.dni || '';
+        form.telefono.value = user.telefono || '';
+        form.email.value = user.email;
+        avatarInput.value = user.avatar || '👤';
+        highlightAvatar();
+      }
+
+      function highlightAvatar() {
+        document.querySelectorAll('.avatar-btn').forEach(b => {
+          b.style.borderColor = '#e5e5e5';
+          b.style.background = 'white';
+        });
+        const sel = document.querySelector(`[data-avatar="${avatarInput.value}"]`);
+        if (sel) {
+          sel.style.borderColor = 'var(--color-gold)';
+          sel.style.background = 'var(--color-cream)';
+        }
+      }
+
+      document.querySelectorAll('.avatar-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.preventDefault();
+          avatarInput.value = btn.dataset.avatar;
+          highlightAvatar();
+        });
+      });
+
+      btnEdit.addEventListener('click', () => {
+        editing = true;
+        loadForm();
+        form.classList.remove('hidden');
+        view.classList.add('hidden');
+        btnEdit.classList.add('hidden');
+      });
+
+      btnCancel.addEventListener('click', () => {
+        editing = false;
+        form.classList.add('hidden');
+        view.classList.remove('hidden');
+        btnEdit.classList.remove('hidden');
+      });
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        UI.clearFormErrors(form);
+        const ok = UI.validateForm(form, {
+          nombre: [v => UI.Validators.required(v), 'Requerido'],
+          email: [v => UI.Validators.required(v) && UI.Validators.email(v), 'Email inválido'],
+          telefono: [v => UI.Validators.phone(v) || v === '', 'Teléfono inválido']
+        });
+        if (!ok) return;
+        const updates = {
+          nombre: form.nombre.value.trim(),
+          dni: form.dni.value.trim(),
+          telefono: form.telefono.value.trim(),
+          email: form.email.value.trim(),
+          avatar: avatarInput.value
+        };
+        const result = Auth.updateProfile(updates);
+        if (!result.ok) {
+          UI.toast(result.error, 'error');
+          return;
+        }
+        UI.toast('Perfil actualizado correctamente', 'success');
+        btnCancel.click();
+        Object.assign(user, updates);
+        fillView();
+      });
+    });
+  </script>
+</body>
+</html>

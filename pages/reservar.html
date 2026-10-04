@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservar — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-requires-auth="true">
+
+  <main class="bg-cream min-h-screen py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Reservas</p>
+        <h1 class="font-display text-4xl sm:text-5xl font-bold mb-3" style="color: var(--color-noir);">Reserva tu mesa</h1>
+        <p class="text-gray-600 max-w-xl mx-auto">Completa los siguientes datos para asegurar tu lugar. El pago se realiza después de confirmar.</p>
+      </div>
+
+      <!-- Indicador de pasos -->
+      <div class="flex items-center justify-center mb-10 gap-2 sm:gap-4">
+        <div class="flex items-center gap-2">
+          <div class="step-circle active">1</div>
+          <span class="text-sm font-semibold hidden sm:inline">Datos</span>
+        </div>
+        <div class="h-0.5 w-8 sm:w-16" style="background: var(--color-cream-dark);"></div>
+        <div class="flex items-center gap-2">
+          <div class="step-circle">2</div>
+          <span class="text-sm font-semibold hidden sm:inline text-gray-400">Confirmación</span>
+        </div>
+        <div class="h-0.5 w-8 sm:w-16" style="background: var(--color-cream-dark);"></div>
+        <div class="flex items-center gap-2">
+          <div class="step-circle">3</div>
+          <span class="text-sm font-semibold hidden sm:inline text-gray-400">Pago</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- FORMULARIO -->
+        <div class="lg:col-span-2">
+          <form id="reservarForm" class="card-premium p-8" novalidate>
+            <h2 class="font-display text-2xl font-bold mb-6" style="color: var(--color-noir);">📅 Detalles de la reserva</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
+              <div>
+                <label for="fecha">Fecha *</label>
+                <input type="date" id="fecha" name="fecha" class="input-field" required>
+              </div>
+              <div>
+                <label for="hora">Hora *</label>
+                <select id="hora" name="hora" class="input-field" required>
+                  <option value="">Selecciona una hora</option>
+                </select>
+              </div>
+              <div>
+                <label for="personas">Número de personas *</label>
+                <select id="personas" name="personas" class="input-field" required>
+                  <option value="">¿Cuántos serán?</option>
+                </select>
+              </div>
+              <div>
+                <label for="zona">Zona *</label>
+                <select id="zona" name="zona" class="input-field" required>
+                  <option value="">Selecciona una zona</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <label for="ocasion">Ocasión especial (opcional)</label>
+              <select id="ocasion" name="ocasion" class="input-field">
+                <option value="">Ninguna en particular</option>
+                <option value="Cumpleaños">Cumpleaños</option>
+                <option value="Aniversario">Aniversario</option>
+                <option value="Reunión de negocios">Reunión de negocios</option>
+                <option value="Cita romántica">Cita romántica</option>
+                <option value="Celebración familiar">Celebración familiar</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+
+            <div class="mb-6">
+              <label for="comentarios">Comentarios adicionales (opcional)</label>
+              <textarea id="comentarios" name="comentarios" rows="4" class="input-field" placeholder="Alergias, preferencias de mesa, peticiones especiales..."></textarea>
+              <p class="text-xs text-gray-500 mt-1">Máximo 200 caracteres</p>
+            </div>
+
+            <div class="p-4 rounded-lg mb-6" style="background: var(--color-cream-dark); border-left: 3px solid var(--color-gold);">
+              <p class="text-sm font-semibold mb-1">📋 Política de cancelación</p>
+              <p class="text-xs text-gray-600">Cancelación gratuita con más de 24 horas. Entre 12-24h tiene cargo del 30%. Menos de 12h tiene cargo del 50%.</p>
+            </div>
+
+            <button type="submit" class="btn-primary w-full justify-center">
+              <span>Continuar al pago</span>
+              <span>→</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- RESUMEN LATERAL -->
+        <aside>
+          <div class="card-premium p-6 sticky top-20">
+            <h3 class="font-display text-xl font-bold mb-4" style="color: var(--color-noir);">💰 Resumen</h3>
+            <div class="space-y-3 mb-4">
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Tarifa por persona</span>
+                <span class="font-semibold" id="r-tarifa">CLP$ 15.000</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Personas</span>
+                <span class="font-semibold" id="r-personas">—</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Zona</span>
+                <span class="font-semibold" id="r-zona">—</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Subtotal</span>
+                <span class="font-semibold" id="r-subtotal">CLP$ 0</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-gray-600">Cargo por zona</span>
+                <span class="font-semibold" id="r-extra">CLP$ 0</span>
+              </div>
+              <div class="border-t pt-4 flex justify-between">
+                <span class="font-bold">Total</span>
+                <span class="font-display text-2xl font-bold" style="color: var(--color-gold-dark);" id="r-total">CLP$ 0</span>
+              </div>
+            </div>
+
+            <div class="p-3 rounded-lg text-xs" style="background: var(--color-cream-dark);">
+              <p class="font-semibold mb-1">ℹ Información</p>
+              <p class="text-gray-600">La reserva se confirma una vez realizado el pago. Recibirás un comprobante por email.</p>
+            </div>
+
+            <div class="mt-4 space-y-2 text-xs text-gray-600">
+              <p>✓ Confirmación inmediata</p>
+              <p>✓ Cancelación flexible</p>
+              <p>✓ Soporte 24/7</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const cfg = Storage.get('config');
+      const form = document.getElementById('reservarForm');
+      const fechaInput = document.getElementById('fecha');
+      const horaSelect = document.getElementById('hora');
+      const personasSelect = document.getElementById('personas');
+      const zonaSelect = document.getElementById('zona');
+
+      // Fecha mínima: hoy
+      const today = new Date().toISOString().split('T')[0];
+      fechaInput.min = today;
+
+      // Cargar horas
+      Reservas.getTimeSlots().forEach(h => {
+        const opt = document.createElement('option');
+        opt.value = h;
+        opt.textContent = h;
+        horaSelect.appendChild(opt);
+      });
+
+      // Cargar personas (1-12)
+      for (let i = 1; i <= 12; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = i + (i === 1 ? ' persona' : ' personas');
+        personasSelect.appendChild(opt);
+      }
+
+      // Cargar zonas
+      cfg.zonas.forEach(z => {
+        const opt = document.createElement('option');
+        opt.value = z.nombre;
+        opt.textContent = z.nombre + (z.precioExtra > 0 ? ` (+${UI.Format.currency(z.precioExtra)}/persona)` : '');
+        zonaSelect.appendChild(opt);
+      });
+
+      document.getElementById('r-tarifa').textContent = UI.Format.currency(cfg.precioPorPersona);
+
+      function updateSummary() {
+        const p = parseInt(personasSelect.value) || 0;
+        const z = zonaSelect.value;
+        const calc = Reservas.calcPrecio(p, z);
+        document.getElementById('r-personas').textContent = p || '—';
+        document.getElementById('r-zona').textContent = z || '—';
+        document.getElementById('r-subtotal').textContent = UI.Format.currency(calc.base);
+        document.getElementById('r-extra').textContent = UI.Format.currency(calc.extra);
+        document.getElementById('r-total').textContent = UI.Format.currency(calc.total);
+      }
+
+      personasSelect.addEventListener('change', updateSummary);
+      zonaSelect.addEventListener('change', updateSummary);
+
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        UI.clearFormErrors(form);
+        const ok = UI.validateForm(form, {
+          fecha: [v => UI.Validators.required(v) && UI.Validators.futureDate(v), 'Fecha inválida'],
+          hora: [v => UI.Validators.required(v), 'Selecciona una hora'],
+          personas: [v => UI.Validators.required(v), 'Selecciona el número de personas'],
+          zona: [v => UI.Validators.required(v), 'Selecciona una zona']
+        });
+        if (!ok) return;
+
+        const data = {
+          fecha: fechaInput.value,
+          hora: horaSelect.value,
+          personas: personasSelect.value,
+          zona: zonaSelect.value,
+          ocasion: form.ocasion.value,
+          comentarios: form.comentarios.value.trim().slice(0, 200)
+        };
+
+        const result = Reservas.create(data);
+        if (!result.ok) {
+          UI.toast(result.error, 'error');
+          return;
+        }
+
+        sessionStorage.setItem('currentReservaId', result.reserva.id);
+        UI.toast('Reserva creada. Continúa al pago.', 'success');
+        setTimeout(() => location.href = 'confirmacion-reserva.html?id=' + result.reserva.id, 700);
+      });
+    });
+  </script>
+</body>
+</html>

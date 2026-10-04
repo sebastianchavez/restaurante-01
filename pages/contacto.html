@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <main class="bg-cream">
+    <section class="py-16 text-center text-white" style="background: linear-gradient(135deg, var(--color-noir), var(--color-noir-soft));">
+      <div class="max-w-4xl mx-auto px-4">
+        <p class="uppercase tracking-widest text-sm mb-3" style="color: var(--color-gold);">Contacto</p>
+        <h1 class="font-display text-4xl sm:text-6xl font-bold mb-3">Estamos para ayudarte</h1>
+        <p class="text-lg text-gray-300 max-w-2xl mx-auto">Escríbenos, visítanos o llámanos. Estaremos encantados de atenderte.</p>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <!-- FORMULARIO -->
+          <div class="card-premium p-8">
+            <h2 class="font-display text-2xl font-bold mb-2" style="color: var(--color-noir);">Envíanos un mensaje</h2>
+            <p class="text-sm text-gray-600 mb-6">Completa el formulario y te responderemos en menos de 24 horas.</p>
+
+            <form id="contactForm" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label for="nombre">Nombre *</label>
+                  <input type="text" id="nombre" name="nombre" class="input-field" required>
+                </div>
+                <div>
+                  <label for="telefono">Teléfono *</label>
+                  <input type="tel" id="telefono" name="telefono" class="input-field" required>
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" class="input-field" required>
+              </div>
+              <div class="mb-4">
+                <label for="asunto">Asunto *</label>
+                <select id="asunto" name="asunto" class="input-field" required>
+                  <option value="">Selecciona un asunto</option>
+                  <option value="Consulta general">Consulta general</option>
+                  <option value="Reserva especial">Reserva especial</option>
+                  <option value="Evento privado">Evento privado</option>
+                  <option value="Catering corporativo">Catering corporativo</option>
+                  <option value="Reclamo">Reclamo</option>
+                  <option value="Otro">Otro</option>
+                </select>
+              </div>
+              <div class="mb-6">
+                <label for="mensaje">Mensaje *</label>
+                <textarea id="mensaje" name="mensaje" rows="5" class="input-field" placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea>
+              </div>
+              <button type="submit" class="btn-primary w-full justify-center">Enviar mensaje</button>
+            </form>
+          </div>
+
+          <!-- INFO -->
+          <div>
+            <div class="card-premium p-8 mb-6">
+              <h2 class="font-display text-2xl font-bold mb-6" style="color: var(--color-noir);">Información</h2>
+              <div class="space-y-5">
+                <div class="flex items-start gap-4">
+                  <div class="placeholder-img rounded-lg flex-shrink-0" style="width:3rem; height:3rem; font-size:1.5rem;">📍</div>
+                  <div>
+                    <p class="font-semibold mb-1">Dirección</p>
+                    <p class="text-gray-600">Av. Apoquindo 345, Las Condes, Santiago</p>
+                    <p class="text-sm text-gray-500 mt-1">Referencia: Cerca del Mall Parque Arauco</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="placeholder-img rounded-lg flex-shrink-0" style="width:3rem; height:3rem; font-size:1.5rem;">📞</div>
+                  <div>
+                    <p class="font-semibold mb-1">Teléfonos</p>
+                    <p class="text-gray-600">+56 2 2345 6789</p>
+                    <p class="text-gray-600">+56 9 8765 4321</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="placeholder-img rounded-lg flex-shrink-0" style="width:3rem; height:3rem; font-size:1.5rem;">✉</div>
+                  <div>
+                    <p class="font-semibold mb-1">Email</p>
+                    <p class="text-gray-600">contacto@legourmet.cl</p>
+                    <p class="text-gray-600">reservas@legourmet.cl</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div class="placeholder-img rounded-lg flex-shrink-0" style="width:3rem; height:3rem; font-size:1.5rem;">💬</div>
+                  <div>
+                    <p class="font-semibold mb-1">Redes sociales</p>
+                    <div class="flex gap-3 mt-2 text-2xl">
+                      <a href="#" class="hover:opacity-70">📘</a>
+                      <a href="#" class="hover:opacity-70">📷</a>
+                      <a href="#" class="hover:opacity-70">🐦</a>
+                      <a href="#" class="hover:opacity-70">▶</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-premium p-8">
+              <h2 class="font-display text-2xl font-bold mb-4" style="color: var(--color-noir);">Horarios de atención</h2>
+              <div class="space-y-3">
+                <div class="flex justify-between pb-3 border-b border-gray-100">
+                  <span class="font-medium">Lunes a Miércoles</span>
+                  <span class="text-gray-600">12:00 — 23:00</span>
+                </div>
+                <div class="flex justify-between pb-3 border-b border-gray-100">
+                  <span class="font-medium">Jueves a Sábado</span>
+                  <span class="text-gray-600">12:00 — 01:00</span>
+                </div>
+                <div class="flex justify-between pb-3 border-b border-gray-100">
+                  <span class="font-medium">Domingos</span>
+                  <span class="text-gray-600">12:00 — 22:00</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="font-medium">Feriados</span>
+                  <span class="text-gray-600">Consultar</span>
+                </div>
+              </div>
+              <div class="mt-4 p-3 rounded-lg text-sm" style="background: var(--color-cream-dark);">
+                <p class="font-semibold mb-1">🎯 Reserva recomendada</p>
+                <p class="text-gray-600">Para garantizar disponibilidad, reserva con al menos 48 horas de anticipación.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAPA -->
+        <div class="mt-10">
+          <div class="placeholder-img rounded-2xl overflow-hidden" style="height: 28rem;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3909.823456789!2d-70.5722!3d-33.4098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a00000001%3A0x1234567890!2sAv.%20Apoquindo%20345%2C%20Las%20Condes!5e0!3m2!1ses!2scl!4v1234567890" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const form = document.getElementById('contactForm');
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        UI.clearFormErrors(form);
+        const ok = UI.validateForm(form, {
+          nombre: [v => UI.Validators.required(v), 'Requerido'],
+          telefono: [v => UI.Validators.required(v) && UI.Validators.phone(v), 'Teléfono inválido'],
+          email: [v => UI.Validators.required(v) && UI.Validators.email(v), 'Email inválido'],
+          asunto: [v => UI.Validators.required(v), 'Selecciona un asunto'],
+          mensaje: [v => UI.Validators.required(v) && UI.Validators.minLength(v, 10), 'Mínimo 10 caracteres']
+        });
+        if (!ok) return;
+        UI.toast('Mensaje enviado correctamente. Te responderemos pronto.', 'success', 4500);
+        form.reset();
+      });
+    });
+  </script>
+</body>
+</html>

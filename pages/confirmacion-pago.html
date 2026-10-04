@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago confirmado — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-requires-auth="true">
+
+  <main class="bg-cream min-h-screen py-10">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-8 no-print">
+        <div class="placeholder-img mx-auto rounded-full" style="width: 6rem; height: 6rem; font-size: 3rem;">✓</div>
+        <p class="uppercase tracking-widest text-sm mt-4 mb-2" style="color: var(--color-success);">Pago confirmado</p>
+        <h1 class="font-display text-4xl sm:text-5xl font-bold mb-3" style="color: var(--color-noir);">¡Gracias por tu reserva!</h1>
+        <p class="text-gray-600 max-w-xl mx-auto">Tu mesa está confirmada. Te hemos enviado un comprobante a tu correo electrónico.</p>
+      </div>
+
+      <!-- Indicador de pasos -->
+      <div class="flex items-center justify-center mb-8 gap-2 sm:gap-4 no-print">
+        <div class="flex items-center gap-2">
+          <div class="step-circle completed">✓</div>
+          <span class="text-sm font-semibold hidden sm:inline">Datos</span>
+        </div>
+        <div class="h-0.5 w-8 sm:w-16" style="background: var(--color-success);"></div>
+        <div class="flex items-center gap-2">
+          <div class="step-circle completed">✓</div>
+          <span class="text-sm font-semibold hidden sm:inline">Confirmación</span>
+        </div>
+        <div class="h-0.5 w-8 sm:w-16" style="background: var(--color-success);"></div>
+        <div class="flex items-center gap-2">
+          <div class="step-circle completed">✓</div>
+          <span class="text-sm font-semibold hidden sm:inline">Pago</span>
+        </div>
+      </div>
+
+      <!-- Comprobante -->
+      <div class="card-premium p-8 mb-6" id="comprobante">
+        <div class="flex flex-wrap items-center justify-between mb-6 pb-6 border-b-2 border-dashed border-gray-300">
+          <div>
+            <p class="font-display text-2xl font-bold" style="color: var(--color-noir);">🍷 Le Gourmet</p>
+            <p class="text-xs text-gray-500">Av. Larco 345, Miraflores, Lima</p>
+            <p class="text-xs text-gray-500">RUC: 20123456789</p>
+          </div>
+          <div class="text-right">
+            <p class="text-xs uppercase text-gray-500">Comprobante</p>
+            <p class="font-display text-lg font-bold" id="comp-id">—</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Fecha</p>
+            <p class="font-semibold" id="c-fecha">—</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Hora</p>
+            <p class="font-semibold" id="c-hora">—</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Personas</p>
+            <p class="font-semibold" id="c-personas">—</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Zona</p>
+            <p class="font-semibold text-sm" id="c-zona">—</p>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 pt-4 mb-4">
+          <p class="text-xs uppercase text-gray-500 mb-2">Cliente</p>
+          <p class="font-semibold" id="c-cliente">—</p>
+          <p class="text-sm text-gray-600" id="c-email">—</p>
+        </div>
+
+        <div class="border-t border-b border-gray-300 py-4 mb-4">
+          <p class="text-xs uppercase text-gray-500 mb-3">Detalle</p>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+              <span id="c-desc-base">Tarifa base</span>
+              <span class="font-semibold" id="c-base">CLP$ 0</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Cargo zona premium</span>
+              <span class="font-semibold" id="c-extra">CLP$ 0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center mb-6">
+          <span class="font-display text-xl font-bold">TOTAL PAGADO</span>
+          <span class="font-display text-3xl font-bold" style="color: var(--color-gold-dark);" id="c-total">CLP$ 0</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-dashed border-gray-300">
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Método de pago</p>
+            <p class="font-semibold" id="c-metodo">—</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Referencia</p>
+            <p class="font-semibold text-sm" id="c-ref">—</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Fecha de pago</p>
+            <p class="font-semibold text-sm" id="c-fechapago">—</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Estado</p>
+            <span class="badge badge-pagada">✓ Pagada</span>
+          </div>
+        </div>
+
+        <!-- QR -->
+        <div class="text-center mt-6 pt-6 border-t border-dashed border-gray-300">
+          <p class="text-xs uppercase text-gray-500 mb-3">Código de verificación</p>
+          <div class="qr-placeholder mx-auto" id="qrCode" style="width: 150px; height: 150px;"></div>
+          <p class="text-xs text-gray-500 mt-3">Presenta este código al llegar al restaurante</p>
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 no-print">
+        <button id="btnPrint" class="btn-secondary justify-center">
+          <span>🖨</span><span>Imprimir</span>
+        </button>
+        <a href="historial-reservas.html" class="btn-secondary justify-center">
+          <span>📋</span><span>Mis reservas</span>
+        </a>
+        <a href="perfil.html" class="btn-primary justify-center">
+          <span>👤</span><span>Mi perfil</span>
+        </a>
+      </div>
+
+      <!-- Info adicional -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 no-print">
+        <div class="card-premium p-5 text-center">
+          <div class="text-3xl mb-2">📧</div>
+          <p class="font-semibold text-sm">Comprobante enviado</p>
+          <p class="text-xs text-gray-600 mt-1">Revisa tu bandeja de entrada</p>
+        </div>
+        <div class="card-premium p-5 text-center">
+          <div class="text-3xl mb-2">📱</div>
+          <p class="font-semibold text-sm">Recordatorio</p>
+          <p class="text-xs text-gray-600 mt-1">Te avisaremos 24h antes</p>
+        </div>
+        <div class="card-premium p-5 text-center">
+          <div class="text-3xl mb-2">🎁</div>
+          <p class="font-semibold text-sm">Programa de puntos</p>
+          <p class="text-xs text-gray-600 mt-1">Ganaste 290 puntos</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id') || sessionStorage.getItem('currentReservaId');
+      const r = Reservas.getById(id);
+      const session = Session.get();
+      if (!r || !session) {
+        UI.toast('Información no encontrada', 'error');
+        setTimeout(() => location.href = 'historial-reservas.html', 1000);
+        return;
+      }
+
+      document.getElementById('comp-id').textContent = r.id;
+      document.getElementById('c-fecha').textContent = UI.Format.date(r.fecha);
+      document.getElementById('c-hora').textContent = r.hora;
+      document.getElementById('c-personas').textContent = r.personas;
+      document.getElementById('c-zona').textContent = r.zona;
+      document.getElementById('c-cliente').textContent = session.nombre;
+      document.getElementById('c-email').textContent = session.email;
+      document.getElementById('c-desc-base').textContent = `Tarifa base (${r.personas} × CLP$ 15.000)`;
+      document.getElementById('c-base').textContent = UI.Format.currency(r.precioBase);
+      document.getElementById('c-extra').textContent = UI.Format.currency(r.precioExtras);
+      document.getElementById('c-total').textContent = UI.Format.currency(r.total);
+      document.getElementById('c-metodo').textContent = r.pago?.metodo || '—';
+      document.getElementById('c-ref').textContent = r.pago?.referencia || 'Pago en local';
+      document.getElementById('c-fechapago').textContent = r.pago?.fecha ? UI.Format.date(r.pago.fecha) : '—';
+
+      // QR basado en ID
+      const qr = document.getElementById('qrCode');
+      const seed = (r.id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0);
+      let s = seed;
+      const cells = [];
+      for (let i = 0; i < 49; i++) {
+        s = (s * 9301 + 49297) % 233280;
+        cells.push(s / 233280 > 0.5 ? 1 : 0);
+      }
+      qr.innerHTML = cells.map(v => `<div class="qr-cell ${v ? '' : 'empty'}"></div>`).join('');
+
+      document.getElementById('btnPrint').addEventListener('click', () => window.print());
+
+      sessionStorage.removeItem('currentReservaId');
+    });
+  </script>
+</body>
+</html>

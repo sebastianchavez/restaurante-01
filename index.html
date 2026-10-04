@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Gourmet — Reserva tu experiencia gastronómica</title>
+  <meta name="description" content="Restaurante de cocina de autor. Reserva tu mesa en línea y disfruta de una experiencia gastronómica única.">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'noir': '#1a1a1a',
+            'gold': '#d4af37',
+            'cream': '#faf7f2',
+            'wine': '#8b0000'
+          },
+          fontFamily: {
+            'display': ['Playfair Display', 'Georgia', 'serif'],
+            'sans': ['Inter', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero-img text-white" style="min-height: 90vh; display: flex; align-items: center;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+      <div class="max-w-3xl animate-fade">
+        <p class="uppercase tracking-widest text-sm sm:text-base mb-4" style="color: var(--color-gold);">✦ Bienvenido a</p>
+        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+          Le <span style="color: var(--color-gold);">Gourmet</span>
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-xl leading-relaxed">
+          Una experiencia gastronómica que fusiona tradición mediterránea y raíces latinoamericanas, donde cada plato es una historia y cada reserva, un momento memorable.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="pages/reservar.html" class="btn-gold">✦ Reservar ahora</a>
+          <a href="pages/servicios.html" class="btn-secondary" style="border-color: var(--color-gold); color: var(--color-gold);">Ver servicios</a>
+        </div>
+        <div class="mt-12 grid grid-cols-3 gap-6 max-w-xl">
+          <div>
+            <p class="font-display text-3xl text-gold font-bold">15+</p>
+            <p class="text-xs text-gray-400 uppercase tracking-wider">Años de experiencia</p>
+          </div>
+          <div>
+            <p class="font-display text-3xl text-gold font-bold">4.9</p>
+            <p class="text-xs text-gray-400 uppercase tracking-wider">Calificación</p>
+          </div>
+          <div>
+            <p class="font-display text-3xl text-gold font-bold">50K</p>
+            <p class="text-xs text-gray-400 uppercase tracking-wider">Comensales felices</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESPECIALIDADES -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Nuestra carta</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold" style="color: var(--color-noir);">Especialidades de la casa</h2>
+        <div class="divider-gold mt-4 max-w-xs mx-auto"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="card-premium">
+          <div class="img-cover h-48" data-img="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" data-fallback="🥩"></div>
+          <div class="p-6">
+            <p class="text-xs uppercase tracking-wider text-gold font-semibold mb-2">Carne</p>
+            <h3 class="font-display text-xl font-bold mb-2">Cordero de los Andes</h3>
+            <p class="text-sm text-gray-600 mb-4">Cordero de cocción lenta con hierbas andinas y reducción de vino tinto.</p>
+            <p class="font-display text-lg" style="color: var(--color-gold-dark);">CLP$ 24.500</p>
+          </div>
+        </article>
+        <article class="card-premium">
+          <div class="img-cover h-48" data-img="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" data-fallback="🐟"></div>
+          <div class="p-6">
+            <p class="text-xs uppercase tracking-wider text-gold font-semibold mb-2">Mariscos</p>
+            <h3 class="font-display text-xl font-bold mb-2">Lomo de Atún Sellado</h3>
+            <p class="text-sm text-gray-600 mb-4">Atún sellado con costra de sésamo, puré de pallares y salsa de miso.</p>
+            <p class="font-display text-lg" style="color: var(--color-gold-dark);">CLP$ 28.900</p>
+          </div>
+        </article>
+        <article class="card-premium">
+          <div class="img-cover h-48" data-img="https://images.unsplash.com/photo-1476124369491-e7addf5db371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" data-fallback="🍝"></div>
+          <div class="p-6">
+            <p class="text-xs uppercase tracking-wider text-gold font-semibold mb-2">Pasta</p>
+            <h3 class="font-display text-xl font-bold mb-2">Risotto de Hongos</h3>
+            <p class="text-sm text-gray-600 mb-4">Risotto cremoso con hongos selváticos, trufa y parmesano añejado.</p>
+            <p class="font-display text-lg" style="color: var(--color-gold-dark);">CLP$ 19.500</p>
+          </div>
+        </article>
+        <article class="card-premium">
+          <div class="img-cover h-48" data-img="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" data-fallback="🍰"></div>
+          <div class="p-6">
+            <p class="text-xs uppercase tracking-wider text-gold font-semibold mb-2">Postre</p>
+            <h3 class="font-display text-xl font-bold mb-2">Soufflé de Chocolate</h3>
+            <p class="text-sm text-gray-600 mb-4">Soufflé tibio con helado de vainilla bourbon y coulis de frutos rojos.</p>
+            <p class="font-display text-lg" style="color: var(--color-gold-dark);">CLP$ 10.900</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE NOSOTROS -->
+  <section class="py-20" style="background: var(--color-cream);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="img-cover h-96 rounded-2xl shadow-lg" data-img="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="🍷"></div>
+        <div>
+          <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Nuestra historia</p>
+          <h2 class="font-display text-4xl sm:text-5xl font-bold mb-6" style="color: var(--color-noir);">Donde la cocina cuenta historias</h2>
+          <p class="text-gray-700 mb-4 leading-relaxed">
+            Desde 2009, Le Gourmet ha sido un referente de la alta cocina en Lima. Nuestro chef ejecutivo, premiado internacionalmente, fusiona técnicas europeas con ingredientes nativos del Perú, creando platos que son verdaderas obras de arte comestibles.
+          </p>
+          <p class="text-gray-700 mb-6 leading-relaxed">
+            Cada ingrediente es seleccionado cuidadosamente, cada técnica es ejecutada con precisión, y cada servicio está pensado para que tu experiencia sea memorable.
+          </p>
+          <a href="pages/contacto.html" class="btn-secondary">Visítanos →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Ambiente</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold" style="color: var(--color-noir);">Un espacio para disfrutar</h2>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="img-cover h-48 md:h-64 rounded-lg col-span-2 row-span-2" data-img="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" data-fallback="🍽️"></div>
+        <div class="img-cover h-32 md:h-32 rounded-lg" data-img="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-fallback="🥂"></div>
+        <div class="img-cover h-32 md:h-32 rounded-lg" data-img="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-fallback="🍝"></div>
+        <div class="img-cover h-32 md:h-32 rounded-lg" data-img="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-fallback="👨‍🍳"></div>
+        <div class="img-cover h-32 md:h-32 rounded-lg" data-img="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-fallback="🍷"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="py-20" style="background: var(--color-noir); color: var(--color-cream);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Testimonios</p>
+        <h2 class="font-display text-4xl sm:text-5xl font-bold text-white">Lo que dicen nuestros comensales</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <article class="p-8 rounded-2xl" style="background: var(--color-noir-soft); border: 1px solid rgba(212,175,55,0.2);">
+          <div class="text-3xl mb-4" style="color: var(--color-gold);">★★★★★</div>
+          <p class="mb-6 italic text-gray-300 leading-relaxed">"Una experiencia inolvidable. La atención al detalle es excepcional y cada plato superaba al anterior. Sin duda volveré pronto."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl" style="background: var(--color-gold);">👩</div>
+            <div>
+              <p class="font-semibold">María Rodríguez</p>
+              <p class="text-xs text-gray-400">Hace 2 semanas</p>
+            </div>
+          </div>
+        </article>
+        <article class="p-8 rounded-2xl" style="background: var(--color-noir-soft); border: 1px solid rgba(212,175,55,0.2);">
+          <div class="text-3xl mb-4" style="color: var(--color-gold);">★★★★★</div>
+          <p class="mb-6 italic text-gray-300 leading-relaxed">"Celebramos nuestro aniversario aquí y fue perfecto. El sommelier nos guió con una selección de vinos espectacular."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl" style="background: var(--color-gold);">👨</div>
+            <div>
+              <p class="font-semibold">Carlos Pérez</p>
+              <p class="text-xs text-gray-400">Hace 1 mes</p>
+            </div>
+          </div>
+        </article>
+        <article class="p-8 rounded-2xl" style="background: var(--color-noir-soft); border: 1px solid rgba(212,175,55,0.2);">
+          <div class="text-3xl mb-4" style="color: var(--color-gold);">★★★★★</div>
+          <p class="mb-6 italic text-gray-300 leading-relaxed">"El sistema de reservas online es muy sencillo y la plataforma es elegante. Ya es mi restaurante favorito."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl" style="background: var(--color-gold);">👩</div>
+            <div>
+              <p class="font-semibold">Ana López</p>
+              <p class="text-xs text-gray-400">Hace 3 meses</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORARIOS Y UBICACIÓN -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <p class="uppercase tracking-widest text-sm mb-2" style="color: var(--color-gold);">Encuéntranos</p>
+          <h2 class="font-display text-4xl font-bold mb-6" style="color: var(--color-noir);">Visítanos</h2>
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+                <span class="text-2xl">📍</span>
+<div>
+                  <p class="font-semibold mb-1">Dirección</p>
+                  <p class="text-gray-600">Av. Apoquindo 345, Las Condes, Santiago</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-2xl">📞</span>
+                <div>
+                  <p class="font-semibold mb-1">Teléfono</p>
+                  <p class="text-gray-600">+56 2 2345 6789</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <span class="text-2xl">✉</span>
+                <div>
+                  <p class="font-semibold mb-1">Email</p>
+                  <p class="text-gray-600">contacto@legourmet.cl</p>
+                </div>
+              </div>
+            </div>
+            <h3 class="font-display text-2xl font-bold mb-4 mt-8" style="color: var(--color-noir);">Horarios de atención</h3>
+            <div class="space-y-2 text-gray-700">
+              <div class="flex justify-between border-b border-gray-200 py-2">
+                <span>Lunes a Miércoles</span>
+                <span class="font-semibold">12:00 - 23:00</span>
+              </div>
+              <div class="flex justify-between border-b border-gray-200 py-2">
+                <span>Jueves a Sábado</span>
+                <span class="font-semibold">12:00 - 01:00</span>
+              </div>
+              <div class="flex justify-between py-2">
+                <span>Domingos</span>
+                <span class="font-semibold">12:00 - 22:00</span>
+              </div>
+            </div>
+          </div>
+          <div class="placeholder-img h-96 rounded-2xl flex items-center justify-center">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3909.823456789!2d-70.5722!3d-33.4098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a00000001%3A0x1234567890!2sAv.%20Apoquindo%20345%2C%20Las%20Condes!5e0!3m2!1ses!2scl!4v1234567890" width="100%" height="100%" style="border:0; border-radius: 1rem;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA RESERVA -->
+  <section class="py-20 text-center" style="background: linear-gradient(135deg, var(--color-noir), var(--color-noir-soft)); color: white;">
+    <div class="max-w-3xl mx-auto px-4">
+      <p class="text-6xl mb-6">🍷</p>
+      <h2 class="font-display text-4xl sm:text-5xl font-bold mb-6">¿Listo para vivir la experiencia?</h2>
+      <p class="text-xl text-gray-300 mb-8 max-w-xl mx-auto">Reserva tu mesa en segundos y permítenos crear un momento inolvidable para ti.</p>
+      <a href="pages/reservar.html" class="btn-gold text-base">✦ Reservar mi mesa</a>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle de reserva — Le Gourmet</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'noir': '#1a1a1a', 'gold': '#d4af37', 'cream': '#faf7f2', 'wine': '#8b0000' },
+          fontFamily: { 'display': ['Playfair Display', 'serif'], 'sans': ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body data-requires-auth="true">
+
+  <main class="bg-cream min-h-screen py-10">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <a href="historial-reservas.html" class="inline-flex items-center gap-2 mb-4 text-sm font-semibold" style="color: var(--color-gold-dark);">
+        ← Volver a mis reservas
+      </a>
+
+      <div id="reservaContent"></div>
+
+      <!-- Modal anulación -->
+      <div id="modalAnular" class="modal-overlay">
+        <div class="modal-content">
+          <div class="text-center mb-4">
+            <div class="text-5xl mb-3">⚠️</div>
+            <h3 class="font-display text-2xl font-bold mb-2" style="color: var(--color-noir);">¿Anular esta reserva?</h3>
+            <p class="text-gray-600">Esta acción no se puede deshacer.</p>
+          </div>
+          <div class="p-4 rounded-lg mb-4 text-sm" style="background: var(--color-cream-dark);">
+            <p class="font-semibold mb-2">📋 Política de cancelación:</p>
+            <ul class="text-xs text-gray-700 space-y-1 list-disc pl-4">
+              <li>Más de 24h: sin cargo</li>
+              <li>Entre 12-24h: 30% de penalidad</li>
+              <li>Menos de 12h: 50% de penalidad</li>
+            </ul>
+          </div>
+          <div class="mb-4">
+            <label for="motivo">Motivo de anulación (opcional)</label>
+            <textarea id="motivo" rows="3" class="input-field" placeholder="Cuéntanos por qué cancelas..."></textarea>
+          </div>
+          <div class="flex gap-3 justify-end">
+            <button class="btn-secondary" onclick="UI.closeModal('modalAnular')">Cancelar</button>
+            <button id="btnConfirmAnular" class="btn-danger">Sí, anular reserva</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="../assets/js/storage.js"></script>
+  <script src="../assets/js/ui.js"></script>
+  <script src="../assets/js/reservas.js"></script>
+  <script>
+    let currentReservaId = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      UI.init();
+      UI.buildChrome();
+
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      if (!id) {
+        UI.toast('Reserva no especificada', 'error');
+        setTimeout(() => location.href = 'historial-reservas.html', 1000);
+        return;
+      }
+
+      const r = Reservas.getById(id);
+      if (!r) {
+        UI.toast('Reserva no encontrada', 'error');
+        setTimeout(() => location.href = 'historial-reservas.html', 1000);
+        return;
+      }
+      currentReservaId = id;
+      render(r);
+    });
+
+    function render(r) {
+      const statusBadge = {
+        'Pendiente': 'badge-pendiente',
+        'Confirmada': 'badge-confirmada',
+        'Pagada': 'badge-pagada',
+        'Completada': 'badge-completada',
+        'Anulada': 'badge-anulada',
+        'En curso': 'badge-curso'
+      };
+
+      const statusIcon = {
+        'Pendiente': '⏳',
+        'Confirmada': '📅',
+        'Pagada': '💳',
+        'Completada': '✅',
+        'Anulada': '❌',
+        'En curso': '🍽️'
+      };
+
+      const steps = Reservas.getStepInfo(r);
+      const timelineHTML = steps.map((s, idx) => `
+        <div class="timeline-item ${s.completed ? '' : 'inactive'}">
+          <p class="font-semibold ${s.completed ? '' : 'text-gray-400'}">${s.id === 'created' ? '✓' : (idx + 1)}. ${s.label}</p>
+          <p class="text-xs text-gray-500">${s.completed ? 'Completado' : 'Pendiente'}</p>
+        </div>
+      `).join('');
+
+      // Botones según estado
+      let actionsHTML = '';
+      if (r.estado === 'Pendiente') {
+        actionsHTML = `
+          <a href="pago.html?id=${r.id}" class="btn-primary justify-center">
+            <span>💳</span><span>Pagar ahora</span>
+          </a>
+          <button class="btn-danger" onclick="solicitarAnulacion()">
+            <span>✕</span><span>Anular reserva</span>
+          </button>
+        `;
+      } else if (r.estado === 'Confirmada' || r.estado === 'Pagada') {
+        actionsHTML = `
+          <button class="btn-danger" onclick="solicitarAnulacion()">
+            <span>✕</span><span>Anular reserva</span>
+          </button>
+        `;
+      } else if (r.estado === 'Anulada' || r.estado === 'Completada') {
+        actionsHTML = `
+          <a href="reservar.html" class="btn-primary justify-center">
+            <span>＋</span><span>Reservar nuevamente</span>
+          </a>
+        `;
+      }
+
+      const pagoHTML = r.pago ? `
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Método</p>
+            <p class="font-semibold text-sm">${r.pago.metodo}</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Referencia</p>
+            <p class="font-semibold text-sm">${r.pago.referencia || '—'}</p>
+          </div>
+          <div>
+            <p class="text-xs uppercase text-gray-500 mb-1">Fecha de pago</p>
+            <p class="font-semibold text-sm">${UI.Format.dateShort(r.pago.fecha)}</p>
+          </div>
+        </div>
+      ` : `<p class="text-sm text-gray-500 italic">Sin pago aún</p>`;
+
+      const comentariosHTML = r.comentarios ? `
+        <div class="mt-4 p-3 rounded-lg" style="background: var(--color-cream-dark);">
+          <p class="text-xs uppercase text-gray-500 mb-1">Comentarios</p>
+          <p class="text-sm text-gray-700">${r.comentarios}</p>
+        </div>
+      ` : '';
+
+      const motivoHTML = r.estado === 'Anulada' && r.motivoAnulacion ? `
+        <div class="mt-4 p-3 rounded-lg" style="background: #f8d7da; border-left: 3px solid var(--color-danger);">
+          <p class="text-xs uppercase text-gray-700 mb-1">Motivo de anulación</p>
+          <p class="text-sm">${r.motivoAnulacion}</p>
+        </div>
+      ` : '';
+
+      document.getElementById('reservaContent').innerHTML = `
+        <!-- Header -->
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+          <div>
+            <p class="text-xs uppercase tracking-wider text-gray-500 mb-1">Reserva</p>
+            <p class="font-display text-4xl font-bold" style="color: var(--color-gold-dark);">${r.id}</p>
+          </div>
+          <span class="badge ${statusBadge[r.estado]}" style="font-size: 0.85rem; padding: 0.5rem 1rem;">
+            ${statusIcon[r.estado] || ''} ${r.estado}
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Columna principal -->
+          <div class="lg:col-span-2 space-y-6">
+            <!-- Detalles -->
+            <div class="card-premium p-6">
+              <h3 class="font-display text-xl font-bold mb-4">📅 Detalles de la reserva</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+                <div>
+                  <p class="text-xs uppercase text-gray-500 mb-1">Fecha</p>
+                  <p class="font-display text-base font-bold">${UI.Format.dayName(r.fecha)}</p>
+                </div>
+                <div>
+                  <p class="text-xs uppercase text-gray-500 mb-1">Hora</p>
+                  <p class="font-display text-base font-bold">${r.hora}</p>
+                </div>
+                <div>
+                  <p class="text-xs uppercase text-gray-500 mb-1">Personas</p>
+                  <p class="font-display text-base font-bold">${r.personas}</p>
+                </div>
+                <div>
+                  <p class="text-xs uppercase text-gray-500 mb-1">Zona</p>
+                  <p class="font-display text-sm font-bold">${r.zona}</p>
+                </div>
+              </div>
+              ${r.ocasion ? `
+                <div class="mt-4">
+                  <p class="text-xs uppercase text-gray-500 mb-1">Ocasión</p>
+                  <p class="font-semibold">${r.ocasion}</p>
+                </div>
+              ` : ''}
+              ${comentariosHTML}
+              ${motivoHTML}
+            </div>
+
+            <!-- Precios -->
+            <div class="card-premium p-6">
+              <h3 class="font-display text-xl font-bold mb-4">💰 Desglose de precios</h3>
+              <div class="space-y-2 mb-4">
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Tarifa base (${r.personas} × CLP$ 15.000)</span>
+                  <span class="font-semibold">${UI.Format.currency(r.precioBase)}</span>
+                </div>
+                <div class="flex justify-between">
+                  <span class="text-gray-600">Cargo zona premium</span>
+                  <span class="font-semibold">${UI.Format.currency(r.precioExtras)}</span>
+                </div>
+                <div class="flex justify-between border-t pt-2">
+                  <span class="font-display text-lg font-bold">Total</span>
+                  <span class="font-display text-2xl font-bold" style="color: var(--color-gold-dark);">${UI.Format.currency(r.total)}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Información de pago -->
+            <div class="card-premium p-6">
+              <h3 class="font-display text-xl font-bold mb-4">💳 Información de pago</h3>
+              ${pagoHTML}
+            </div>
+
+            <!-- Acciones -->
+            <div class="flex flex-wrap gap-3">
+              ${actionsHTML}
+            </div>
+          </div>
+
+          <!-- Columna lateral -->
+          <aside>
+            <div class="card-premium p-6 sticky top-20">
+              <h3 class="font-display text-lg font-bold mb-4">📊 Línea de tiempo</h3>
+              <div class="timeline">
+                ${timelineHTML}
+              </div>
+
+              <div class="mt-6 p-4 rounded-lg text-xs" style="background: var(--color-cream-dark);">
+                <p class="font-semibold mb-1">📅 Reserva creada</p>
+                <p class="text-gray-600">${UI.Format.date(r.createdAt)}</p>
+              </div>
+
+              <div class="mt-3 p-4 rounded-lg text-xs" style="background: var(--color-cream-dark);">
+                <p class="font-semibold mb-1">⏰ Faltan</p>
+                <p class="text-gray-600" id="countdown">—</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      `;
+
+      // Countdown
+      const target = new Date(r.fecha + 'T' + r.hora);
+      const now = new Date();
+      const diff = target - now;
+      if (diff > 0 && r.estado !== 'Anulada' && r.estado !== 'Completada') {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        document.getElementById('countdown').textContent = `${days} días, ${hours} horas`;
+      } else {
+        document.getElementById('countdown').textContent = '—';
+      }
+    }
+
+    function solicitarAnulacion() {
+      document.getElementById('motivo').value = '';
+      UI.openModal('modalAnular');
+    }
+
+    document.getElementById('btnConfirmAnular').addEventListener('click', () => {
+      const motivo = document.getElementById('motivo').value.trim();
+      const result = Reservas.anular(currentReservaId, motivo);
+      if (!result.ok) {
+        UI.toast(result.error, 'error');
+        return;
+      }
+      UI.closeModal('modalAnular');
+      UI.toast('Reserva anulada correctamente', 'success');
+      setTimeout(() => location.reload(), 800);
+    });
+  </script>
+</body>
+</html>
