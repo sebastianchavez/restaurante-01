@@ -488,3 +488,7 @@ label {
   .hero h1 { font-size: 2.5rem !important; }
   .modal-content { padding: 1.25rem; }
 }
+/* Keep brand, account links and menu reachable on small phones. */
+@media (max-width: 479px) {
+  .site-header .h-16 { height: auto; min-height: 4rem; flex-wrap: wrap; gap: .75rem; padding-block: .75rem; }
+}

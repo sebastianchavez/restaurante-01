@@ -9,7 +9,7 @@ Template de sistema de reservas para restaurante con identidad visual **Fine Din
 - ✅ 15 pantallas funcionales completamente enlazadas
 - ✅ Autenticación completa (Login, Registro, Recuperación de contraseña)
 - ✅ Flujo de reserva en 3 pasos con indicadores de progreso
-- ✅ Múltiples métodos de pago (Tarjeta, Yape/Plin, Efectivo)
+- ✅ Múltiples métodos de pago (Tarjeta, Transferencia/Depósito, Efectivo)
 - ✅ Perfil de usuario con estadísticas y edición
 - ✅ Historial de reservas con filtros y búsqueda
 - ✅ Detalle de reserva con modal de anulación

@@ -152,16 +152,16 @@ const UI = (() => {
     currency: n => 'CLP$ ' + Number(n || 0).toLocaleString('es-CL', { maximumFractionDigits: 0 }),
     date: iso => {
       const d = new Date(iso);
-      return d.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
+      return d.toLocaleDateString('es-CL', { day: '2-digit', month: 'long', year: 'numeric' });
     },
     dateShort: iso => {
       const d = new Date(iso);
-      return d.toLocaleDateString('es-PE', { day: '2-digit', month: 'short' });
+      return d.toLocaleDateString('es-CL', { day: '2-digit', month: 'short' });
     },
     time: h => h,
     dayName: iso => {
       const d = new Date(iso);
-      return d.toLocaleDateString('es-PE', { weekday: 'long', day: '2-digit', month: 'long' });
+      return d.toLocaleDateString('es-CL', { weekday: 'long', day: '2-digit', month: 'long' });
     }
   };
 
@@ -274,7 +274,7 @@ const UI = (() => {
                 <a href="${base}pages/reservar.html" class="nav-link">Reservar</a>
               </nav>
               <div class="flex items-center gap-2 sm:gap-4">
-                <div id="auth-slot" class="flex items-center gap-2 sm:gap-4"></div>
+                <div id="auth-slot" class="flex flex-wrap items-center gap-2 sm:gap-4"></div>
                 <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg hover:bg-cream-dark">
                   <span class="text-2xl">☰</span>
                 </button>
